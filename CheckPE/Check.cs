@@ -50,10 +50,11 @@ namespace CheckPE
 
         public static bool IsAnycpuOrX64(string fileName)
         {
-            Assembly assembly = Assembly.ReflectionOnlyLoadFrom(fileName);
+
+            Assembly assembly = Assembly.LoadFrom(fileName);
             assembly.ManifestModule.GetPEKind(out var peKind, out var machine);
             var result = peKind.HasFlag(PortableExecutableKinds.Required32Bit);
-
+            assembly = null;
             return !result;
         }
 
