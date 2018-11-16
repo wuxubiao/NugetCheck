@@ -9,7 +9,8 @@ using System.Threading.Tasks;
 using System.Web;
 using System.IO.Compression;
 using System.Runtime.Remoting.Messaging;
-using CheckPE;
+using Common;
+
 
 namespace NugetHttpModule
 {
@@ -36,48 +37,15 @@ namespace NugetHttpModule
                 ZipFile.ExtractToDirectory(temporaryFile, tempDir);
 
                 var files = new List<string>();
-                GetFiles(tempDir, "*.dll", ref files);
+                FileOperation.GetFiles(tempDir, "*.dll", ref files);
 
-                var result = CheckFiles(files);
+                var result = FileOperation.CheckFiles(files);
 
                 File.Delete(temporaryFile);
                 DirectoryInfo di = new DirectoryInfo(tempDir);
                 di.Delete(true);
 
                 if(!result) EndRequest(context);
-            }
-        }
-
-        bool CheckFiles(List<string> files)
-        {
-            foreach (var file in files)
-            {
-                if(!Check.IsAnycpuOrX64(file)) return false;
-            }
-
-            return true;
-        }
-
-        void GetFiles(string path, string searchPattern, ref List<string> files)
-        {
-            if (files == null)
-            {
-                files = new List<string>();
-            }
-
-            DirectoryInfo dir = new DirectoryInfo(path);
-            FileInfo[] fil = dir.GetFiles(searchPattern);
-            DirectoryInfo[] dii = dir.GetDirectories();
-
-            foreach (FileInfo f in fil)
-            {
-                files.Add(f.FullName);//添加文件的路径到列表
-            }
-
-            //获取子文件夹内的文件列表，递归遍历
-            foreach (DirectoryInfo d in dii)
-            {
-                GetFiles(d.FullName, searchPattern, ref files);
             }
         }
 
