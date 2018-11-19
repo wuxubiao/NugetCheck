@@ -17,7 +17,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NugetHttpModule", "NugetHtt
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CheckPackages", "CheckPackages\CheckPackages.csproj", "{12631A24-CE46-4A1D-B9AA-A76B08E7D566}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{C82862C2-C9A9-47F6-98E7-632B5DBFEE4F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csproj", "{C82862C2-C9A9-47F6-98E7-632B5DBFEE4F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestDll", "TestDll", "{6DD167F0-727B-4736-814C-88DB14BAC35B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -111,6 +113,11 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E8639C02-2633-45F0-9C89-45EBB03AF0A7} = {6DD167F0-727B-4736-814C-88DB14BAC35B}
+		{FD4B6A44-3A90-44DD-9A52-ECFCE8E7F2E4} = {6DD167F0-727B-4736-814C-88DB14BAC35B}
+		{B47F77B3-C92B-4B58-9F2F-04EDF2414869} = {6DD167F0-727B-4736-814C-88DB14BAC35B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F2C4B5C4-98C8-466F-9304-9EC5D67CA1BF}

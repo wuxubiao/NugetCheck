@@ -16,7 +16,10 @@ namespace ConsoleApp1
             string file64 = @"C:\Work\NugetCheck\x64\bin\Debug\x64.dll";
             string fileanycpu = @"C:\Work\NugetCheck\anycpu\bin\Debug\anycpu.dll";
 
-            var bbb=Check.GetMachineType(file32);
+            var c1= CorFlags.IsAnycpuOrX64(file32);
+            var c2= CorFlags.IsAnycpuOrX64(file64);
+            var c3= CorFlags.IsAnycpuOrX64(fileanycpu);
+
             var a1 = Check.GetCharacteristics(file32);
             var a2 = Check.GetCharacteristics(file64);
             var a3 = Check.GetCharacteristics(fileanycpu);

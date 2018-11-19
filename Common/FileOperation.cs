@@ -2,22 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using CheckPE;
 
 namespace Common
 {
     public class FileOperation
     {
-        public static bool CheckFiles(List<string> files)
-        {
-            foreach (var file in files)
-            {
-                if (!Check.IsAnycpuOrX64(file)) return false;
-            }
-
-            return true;
-        }
-
         public static void GetFiles(string path, string searchPattern, ref List<string> files)
         {
             if (files == null)

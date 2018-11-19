@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.IO.Compression;
 using System.Runtime.Remoting.Messaging;
+using CheckPE;
 using Common;
 
 
@@ -16,7 +17,6 @@ namespace NugetHttpModule
 {
     public class CheckPlatformHttpModule : IHttpModule
     {
-
         public void Init(HttpApplication context)
         {
             context.BeginRequest += new EventHandler(BeginRequest);
@@ -30,20 +30,28 @@ namespace NugetHttpModule
 
             if (request.HttpMethod.ToLower().Equals("put") && request.Path.ToLower().Equals("/nuget/"))
             {
-                var temporaryFile = Path.GetTempFileName();
-                var tempDir = Path.GetTempPath() + Path.GetRandomFileName();
+                var result = false;
+                try
+                {
+                    var temporaryFile = Path.GetTempFileName();
+                    var tempDir = Path.GetTempPath() + Path.GetRandomFileName();
 
-                request.Files[0].SaveAs(temporaryFile);
-                ZipFile.ExtractToDirectory(temporaryFile, tempDir);
+                    request.Files[0].SaveAs(temporaryFile);
+                    ZipFile.ExtractToDirectory(temporaryFile, tempDir);
 
-                var files = new List<string>();
-                FileOperation.GetFiles(tempDir, "*.dll", ref files);
+                    var files = new List<string>();
+                    FileOperation.GetFiles(tempDir, "*.dll", ref files);
 
-                var result = FileOperation.CheckFiles(files);
+                    result = CheckFiles(files);
 
-                File.Delete(temporaryFile);
-                DirectoryInfo di = new DirectoryInfo(tempDir);
-                di.Delete(true);
+                    File.Delete(temporaryFile);
+                    DirectoryInfo di = new DirectoryInfo(tempDir);
+                    di.Delete(true);
+                }
+                catch (Exception exception)
+                {
+
+                }
 
                 if(!result) EndRequest(context);
             }
@@ -56,6 +64,16 @@ namespace NugetHttpModule
             response.StatusCode = (int) HttpStatusCode.UnsupportedMediaType;
             response.Write("不允许上传x86版本的包，请把项目>生成>平台目标设置为Any CPU");
             response.End();
+        }
+
+        static bool CheckFiles(List<string> files)
+        {
+            foreach (var file in files)
+            {
+                if (!CorFlags.IsAnycpuOrX64(file)) return false;
+            }
+
+            return true;
         }
 
         public void Dispose()

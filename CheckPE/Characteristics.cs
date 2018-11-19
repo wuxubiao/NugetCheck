@@ -22,7 +22,5 @@ namespace CheckPE
         IMAGE_FILE_DLL = 0x2000,  // File is a DLL.
         IMAGE_FILE_UP_SYSTEM_ONLY = 0x4000,  // File should only be run on a UP machine
         IMAGE_FILE_BYTES_REVERSED_HI = 0x8000,  // Bytes of machine word are reversed.
-        IMAGE_FILE_DLL_X32= 0x2102,
-        IMAGE_FILE_DLL_X64OrAnyCpu = 0x2022
     }
 }

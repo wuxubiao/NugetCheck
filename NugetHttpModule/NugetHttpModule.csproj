@@ -24,7 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
@@ -61,6 +61,10 @@
     <Content Include="readme.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CheckPE\CheckPE.csproj">
+      <Project>{7789e72e-7779-4cc0-9369-7a66e170fbc1}</Project>
+      <Name>CheckPE</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{c82862c2-c9a9-47f6-98e7-632b5dbfee4f}</Project>
       <Name>Common</Name>
